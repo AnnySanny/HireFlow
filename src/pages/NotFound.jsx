@@ -1,43 +1,55 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 
 export default function NotFound() {
-  const { i18n } = useTranslation();
-  const lang = i18n.language === "en" ? "en" : "ua";
-
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center px-6 text-center">
-
-      <h1 className="
-        text-[120px] sm:text-[160px] 
-        font-extrabold 
-        leading-none 
-        mb-6
-        text-accent
-      ">
+    <div
+      className="
+      min-h-screen
+      flex flex-col items-center justify-center
+      text-center
+      px-6
+      bg-slate-50 dark:bg-slate-950
+      text-slate-800 dark:text-slate-100
+    "
+    >
+      <h1
+        className="
+        text-[120px]
+        font-bold
+        text-blue-500
+        leading-none
+      "
+        style={{ fontFamily: "Orbitron, sans-serif" }}
+      >
         404
       </h1>
 
-      <p className="mb-10 text-xl opacity-70">
-        {lang === "en"
-          ? "Something went wrong"
-          : "Щось пішло не так"}
+
+      <h2 className="text-2xl font-semibold mt-4">
+        Сторінку не знайдено
+      </h2>
+
+      <p className="text-slate-500 dark:text-slate-400 mt-3 max-w-md">
+        Сторінка, яку ви намагаєтесь відкрити, не існує або була переміщена.
       </p>
 
-      <Link
-        to="/dashboard"
-        className="
-          px-8 py-3
-          rounded-full
-          bg-accent text-white
-          text-lg font-semibold
-          hover:opacity-90
-          transition
-        "
-      >
-        {lang === "en" ? "Go to Dashboard" : "На головну"}
-      </Link>
 
+      <Link
+        to="/"
+        className="
+        mt-8
+        flex items-center gap-2
+        px-6 py-3
+        rounded-lg
+        bg-blue-500
+        text-white
+        hover:bg-blue-600
+        transition
+      "
+      >
+        На головну
+      </Link>
     </div>
   );
 }

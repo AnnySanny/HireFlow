@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 const firebaseConfig = {
-  apiKey: "AIzaSyDBE2SBFD8BTBY4G3CV-xA245VdO78Wdfw",
-  authDomain: "moodbloom-ddf02.firebaseapp.com",
-  projectId: "moodbloom-ddf02",
-  storageBucket: "moodbloom-ddf02.firebasestorage.app",
-  messagingSenderId: "173344927093",
-  appId: "1:173344927093:web:f0610ca4001eee4a3bf73c"
+  apiKey: "AIzaSyBxhR9KaanelF92QP39pxkGSdKn6xRmREg",
+  authDomain: "hireflow-98a08.firebaseapp.com",
+  projectId: "hireflow-98a08",
+  storageBucket: "hireflow-98a08.firebasestorage.app",
+  messagingSenderId: "428125255965",
+  appId: "1:428125255965:web:9f7cbb2f6269c4e16b89f4"
 };
 
 const app = initializeApp(firebaseConfig);

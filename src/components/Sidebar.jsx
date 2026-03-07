@@ -2,127 +2,134 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
-  BookOpen,
+  Briefcase,
+  Users,
+  KanbanSquare,
   BarChart3,
-  MessageCircle,
   Settings,
 } from "lucide-react";
-import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 
 export default function Sidebar() {
-  const { i18n } = useTranslation();
   const { user } = useAuth();
-  const lang = i18n.language === "en" ? "en" : "ua";
 
   const menu = [
     {
       path: "/dashboard",
-      label: lang === "en" ? "Dashboard" : "Головна",
-      icon: <LayoutDashboard size={18} />,
+      label: "Дашборд",
+      icon: LayoutDashboard,
       public: true,
     },
     {
-      path: "/journal",
-      label: lang === "en" ? "Journal" : "Щоденник",
-      icon: <BookOpen size={18} />,
+      path: "/vacancies",
+      label: "Вакансії",
+      icon: Briefcase,
     },
     {
-      path: "/statistics",
-      label: lang === "en" ? "Statistics" : "Статистика",
-      icon: <BarChart3 size={18} />,
+      path: "/candidates",
+      label: "Кандидати",
+      icon: Users,
     },
     {
-      path: "/support",
-      label: lang === "en" ? "Support Chat" : "Підтримка",
-      icon: <MessageCircle size={18} />,
+      path: "/kanban",
+      label: "Kanban",
+      icon: KanbanSquare,
+    },
+    {
+      path: "/analytics",
+      label: "Аналітика",
+      icon: BarChart3,
     },
     {
       path: "/settings",
-      label: lang === "en" ? "Settings" : "Налаштування",
-      icon: <Settings size={18} />,
+      label: "Налаштування",
+      icon: Settings,
     },
   ];
 
   return (
-<aside
-  className="
-    w-[300px] min-h-screen flex flex-col
-    pt-10 px-8
-    bg-slate-50 dark:bg-slate-900
-    text-slate-800 dark:text-slate-100
-    border-r-2 border-[var(--accent)]/15
-    shadow-sm dark:shadow-black/30
-    transition-colors duration-300
-  "
->
-
-      <div className="flex items-center gap-4 mb-14">
+    <aside
+      className="
+        hidden lg:flex
+        w-[280px] min-h-screen flex-col
+        pt-10 px-8
+        bg-white dark:bg-slate-900
+        text-slate-800 dark:text-slate-100
+        border-r border-slate-200 dark:border-slate-800
+      "
+    >
+      <div className="flex items-center gap-3 mb-14">
         <img
           src="/img/logo.png"
-          alt="MoodBloom logo"
-          className="w-13 h-13 object-contain"
+          alt="HireFlow logo"
+          className="w-11 h-11 object-contain"
         />
 
-        <div>
-          <h2
-            className="text-[28px] leading-tight"
-            style={{ fontFamily: "Montserrat, serif" }}
-          >
-            MoodBloom
-          </h2>
-
-          <p
-            className="text-[14px] italic opacity-70"
-            style={{ fontFamily: "Dancing Script, cursive" }}
-          >
-            Mental Health Tracker
-          </p>
-        </div>
+        <h2
+          className="text-[26px] font-semibold tracking-wide"
+          style={{ fontFamily: "Orbitron, sans-serif" }}
+        >
+          Hire<span className="text-blue-500">Flow</span>
+        </h2>
       </div>
-
-      <nav className="flex flex-col gap-6">
+      <nav className="flex flex-col gap-4">
         {menu.map((item) => {
+          const Icon = item.icon;
           const isAllowed = user || item.public;
 
           return (
             <NavLink
               key={item.path}
-              to={isAllowed ? item.path : "#"}
+              to={
+                item.path === "/dashboard"
+                  ? user
+                    ? "/dashboard"
+                    : "/dashboard-guest"
+                  : isAllowed
+                    ? item.path
+                    : "#"
+              }
               onClick={(e) => {
                 if (!isAllowed) e.preventDefault();
               }}
               className={({ isActive }) =>
                 `
-                h-[52px]
                 flex items-center justify-between
-                px-6
-                rounded-[18px]
+                h-[48px]
+                px-5
+                rounded-xl
                 transition-all duration-200
                 border
                 ${
                   !isAllowed
                     ? "opacity-40 cursor-not-allowed border-transparent"
                     : isActive
-                    ? "border-accent text-accent bg-accent/10 font-semibold"
-                    : "border-transparent hover:border-accent hover:text-accent"
+                      ? "border-blue-500 bg-blue-50 dark:bg-slate-800"
+                      : "border-transparent hover:bg-slate-100 dark:hover:bg-slate-800"
                 }
                 `
               }
             >
-              <span
-                className="text-[16px]"
-                style={{
-                  fontFamily: "Montserrat, sans-serif",
-                  letterSpacing: "0.5px",
-                }}
-              >
-                {item.label}
-              </span>
+              {({ isActive }) => (
+                <>
+                  <span
+                    className={`text-[15px] ${
+                      isActive ? "text-blue-500 font-medium" : ""
+                    }`}
+                    style={{
+                      fontFamily: "Inter, sans-serif",
+                      letterSpacing: "0.3px",
+                    }}
+                  >
+                    {item.label}
+                  </span>
 
-              <span className="opacity-80">
-                {item.icon}
-              </span>
+                  <Icon
+                    size={isActive ? 22 : 18}
+                    className={`${isActive ? "text-blue-500" : "opacity-80"}`}
+                  />
+                </>
+              )}
             </NavLink>
           );
         })}
