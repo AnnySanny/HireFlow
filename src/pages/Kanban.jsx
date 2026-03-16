@@ -173,6 +173,8 @@ export default function Kanban() {
       <input
         type="text"
         placeholder="Пошук кандидатів або дошок..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
         className="
           w-full md:w-[320px]
           rounded-xl
